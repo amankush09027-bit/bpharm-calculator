@@ -1,119 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>B.Pharm Smart Calculator</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
+    font-family:Arial;
     background:#eef4f8;
-    color:#172033;
-}
-
-header{
-    background:linear-gradient(135deg,#087f8c,#075985);
-    color:white;
-    text-align:center;
-    padding:28px 15px;
-}
-
-header h1{
     margin:0;
-    font-size:30px;
+    padding:20px;
 }
 
-header p{
-    margin:10px 0 0;
-    font-size:16px;
+h1{
+    text-align:center;
+    color:#087f8c;
 }
 
-.container{
-    max-width:900px;
-    margin:25px auto;
-    padding:10px 15px;
-}
-
-.card{
+.box{
+    max-width:500px;
+    margin:20px auto;
     background:white;
     padding:25px;
-    margin-bottom:22px;
-    border-radius:18px;
-    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    border-radius:15px;
+    box-shadow:0 4px 15px #ccc;
 }
 
-.card h2{
-    margin-top:0;
-    color:#087f8c;
-    font-size:27px;
-}
-
-label{
-    display:block;
-    font-size:17px;
-    font-weight:bold;
-    margin:18px 0 7px;
-}
-
-input,select{
+input{
     width:100%;
-    padding:15px;
-    font-size:17px;
-    border:2px solid #d5dde4;
-    border-radius:10px;
-    background:white;
-    color:#172033;
-}
-
-input:focus,select:focus{
-    outline:none;
-    border-color:#087f8c;
+    padding:14px;
+    margin:8px 0 15px;
+    box-sizing:border-box;
+    font-size:18px;
 }
 
 button{
     width:100%;
     padding:15px;
-    margin-top:20px;
-    border:none;
-    border-radius:10px;
     background:#087f8c;
     color:white;
+    border:0;
+    border-radius:8px;
     font-size:18px;
     font-weight:bold;
-    cursor:pointer;
 }
 
-button:active{
-    transform:scale(.98);
-}
-
-.result{
-    display:none;
-    margin-top:18px;
-    padding:17px;
-    border-radius:10px;
-    background:#e7f7f8;
-    border-left:5px solid #087f8c;
-    font-size:18px;
-    line-height:1.6;
-}
-
-.error{
-    background:#fff0f0;
-    border-left-color:#d32f2f;
-    color:#c62828;
-}
-
-.footer{
+#result{
+    margin-top:20px;
+    padding:15px;
+    background:#e5f7f8;
+    border-radius:8px;
+    font-size:20px;
     text-align:center;
-    padding:25px;
-    color:#666;
-    font-size:14px;
 }
+</style>
+</head>
+
+<body>
+
+<h1>💊 B.Pharm Smart Calculator</h1>
+
+<div class="box">
+
+<h2>Angle of Repose</h2>
+
+<label>Height (h) in cm</label>
+
+<input id="h" type="number" placeholder="Enter height">
+
+<label>Radius (r) in cm</label>
+
+<input id="r" type="number" placeholder="Enter radius">
+
+<button id="calculate">Calculate</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+document.getElementById("calculate").addEventListener("click", function(){
+
+    var h = Number(document.getElementById("h").value);
+    var r = Number(document.getElementById("r").value);
+
+    if(h <= 0 || r <= 0){
+
+        document.getElementById("result").innerHTML =
+        "❌ Please enter valid values.";
+
+        return;
+    }
+
+    var angle = Math.atan(h / r) * 180 / Math.PI;
+
+    document.getElementById("result").innerHTML =
+    "✅ Angle of Repose = <b>" +
+    angle.toFixed(2) +
+    "°</b>";
+
+});
+
+</script>
+
+</body>
+    </html>
