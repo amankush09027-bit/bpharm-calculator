@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>B.Pharm Smart Calculator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef4f8;
+    color:#172033;
+}
+
+header{
+    background:linear-gradient(135deg,#087f8c,#075985);
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+}
+
+header h1{
+    margin:0;
+    font-size:28px;
+}
+
+header p{
+    margin:8px 0 0;
+    font-size:14px;
+}
+
+.container{
+    max-width:900px;
+    margin:25px auto;
+    padding:15px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    margin-bottom:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+.card h2{
+    color:#087f8c;
+    margin-top:0;
+}
+
+label{
+    display:block;
+    margin-top:14px;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccd5df;
+    border-radius:8px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus,select:focus{
+    border-color:#087f8c;
+}
+
+button{
+    width:100%;
+    margin-top:20px;
+    padding:13px;
+    border:0;
+    border-radius:8px;
+    background:#087f8c;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#066974;
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:#e8f7f8;
+    border-left:5px solid #087f8c;
+    border-radius:8px;
+    display:none;
+}
+
+.result h3{
+    margin-top:0;
+    color:#087f8c;
+}
+
+.error{
+    color:#c62828;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    padding:20px;
+    color:#666;
+    font-size:13px;
+}
+
+/* Mobile */
+@media(max-width:600px){
+    header h1{
+        font-size:23px;
+    }
+
+    .container{
+        margin:15px auto;
+    }
+
+    .card{
+        padding:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>💊 B.Pharm Smart Calculator</h1>
+    <p>Useful Pharmaceutical Calculations</p>
+</header>
+
+<div class="container">
+
+    <!-- Angle of Repose -->
+    <div class="card">
+
+        <h2>1. Angle of Repose</h2>
+
+        <label for="height">
+            Height (h) in cm
+        </label>
+
+        <input
+            type="number"
+            id="height"
+            placeholder="Enter height"
+            step="any"
+        >
+
+        <label for="radius">
+            Radius (r) in cm
+        </label>
+
+        <input
+            type="number"
+            id="radius"
+            placeholder="Enter radius"
+            step="any"
+        >
+
+        <button onclick="calculateAngle()">
+            Calculate
+        </button>
+
+        <div class="result" id="angleResult"></div>
+
+    </div>
+
+
+    <!-- pH Calculator -->
+    <div class="card">
+
+        <h2>2. pH Calculator</h2>
+
+        <label for="concentration">
+            Concentration (mol/L)
+        </label>
+
+        <input
+            type="number"
+            id="concentration"
+            placeholder="Example: 0.01"
+            step="any"
+        >
+
+        <label for="solutionType">
+            Solution Type
+        </label>
+
+        <select id="solutionType">
+            <option value="acid">Strong Acid (HCl)</option>
+            <option value="base">Strong Base (NaOH)</option>
+        </select>
+
+        <button onclick="calculatePH()">
+            Calculate pH
+        </button>
+
+        <div class="result" id="phResult"></div>
+
+    </div>
+
+
+    <!-- Percentage Strength -->
+    <div class="card">
+
+        <h2>3. Percentage Strength</h2>
+
+        <label for="solute">
+            Amount of Solute (g)
+        </label>
+
+        <input
+            type="number"
+            id="solute"
+            placeholder="Enter solute"
+            step="any"
+        >
+
+        <label for="solution">
+            Total Solution (mL)
+        </label>
+
+        <input
+            type="number"
+            id="solution"
+            placeholder="Enter total volume"
+            step="any"
+        >
+
+        <button onclick="calculateStrength()">
+            Calculate
+        </button>
+
+        <div class="result" id="strengthResult"></div>
+
+    </div>
+
+
+    <!-- Dose Calculator -->
+    <div class="card">
+
+        <h2>4. Dose Calculator</h2>
+
+        <label for="childDose">
+            Desired Dose (mg)
+        </label>
+
+        <input
+            type="number"
+            id="childDose"
+            placeholder="Enter desired dose"
+            step="any"
+        >
+
+        <label for="availableDose">
+            Available Dose (mg)
+        </label>
+
+        <input
+            type="number"
+            id="availableDose"
+            placeholder="Enter available dose"
+            step="any"
+        >
+
+        <label for="availableVolume">
+            Available Volume (mL)
+        </label>
+
+        <input
+            type="number"
+            id="availableVolume"
+            placeholder="Enter volume"
+            step="any"
+        >
+
+        <button onclick="calculateDose()">
+            Calculate
+        </button>
+
+        <div class="result" id="doseResult"></div>
+
+    </div>
+
+
+    <!-- Dilution -->
+    <div class="card">
+
+        <h2>5. Dilution Calculator</h2>
+
+        <label for="c1">
+            C₁ – Initial Concentration
+        </label>
+
+        <input
+            type="number"
+            id="c1"
+            placeholder="Enter C1"
+            step="any"
+        >
+
+        <label for="c2">
+            C₂ – Final Concentration
+        </label>
+
+        <input
+            type="number"
+            id="c2"
+            placeholder="Enter C2"
+            step="any"
+        >
+
+        <label for="v2">
+            V₂ – Final Volume (mL)
+        </label>
+
+        <input
+            type="number"
+            id="v2"
+            placeholder="Enter V2"
+            step="any"
+        >
+
+        <button onclick="calculateDilution()">
+            Calculate V₁
+        </button>
+
+        <div class="result" id="dilutionResult"></div>
+
+    </div>
+
+
+    <!-- BMI -->
+    <div class="card">
+
+        <h2>6. BMI Calculator</h2>
+
+        <label for="weight">
+            Weight (kg)
+        </label>
+
+        <input
+            type="number"
+            id="weight"
+            placeholder="Example: 60"
+            step="any"
+        >
+
+        <label for="heightCm">
+            Height (cm)
+        </label>
+
+        <input
+            type="number"
+            id="heightCm"
+            placeholder="Example: 170"
+            step="any"
+        >
+
+        <button onclick="calculateBMI()">
+            Calculate BMI
+        </button>
+
+        <div class="result" id="bmiResult"></div>
+
+    </div>
+
+</div>
+
+
+<div class="footer">
+    B.Pharm Smart Calculator © 2026
+</div>
+
+
+<script>
+
+/* ==============================
+   ANGLE OF REPOSE
+   Formula:
+   tan θ = h/r
+   θ = tan⁻¹(h/r)
+================================ */
+
+function calculateAngle(){
+
+    const h = parseFloat(
+        document.getElementById("height").value
+    );
+
+    const r = parseFloat(
+        document.getElementById("radius").value
+    );
+
+    const result =
+        document.getElementById("angleResult");
+
+    if(
+        isNaN(h) ||
+        isNaN(r) ||
+        h <= 0 ||
+        r <= 0
+    ){
+
+        result.style.display = "block";
+
+        result.innerHTML =
+            '<span class="error">Please enter valid height and radius.</span>';
+
+        return;
+    }
+
+    const angle =
+        Math.atan(h / r) * (180 / Math.PI);
+
+    result.style.display = "block";
+
+    result.innerHTML =
+        "<h3>Result</h3>" +
+        "Angle of Repose = <strong>" +
+        angle.toFixed(2) +
+        "°</strong>";
+}
+
+
+/* ==============================
+   pH CALCULATOR
+================================ */
+
+function calculatePH(){
+
+    const concentration =
+        parseFloat(
+            document.getElementById("concentration").value
+        );
+
+    const type =
+        document.getElementById("solutionType").value;
+
+    const result =
+        document.getElementById("phResult");
+
+    if(
+        isNaN(concentration) ||
+        concentration <= 0
+    ){
+
+        result.style.display = "block";
+
+        result.innerHTML =
+            '<span class="error">Please enter a valid concentration.</span>';
+
+        return;
+    }
+
+    let pH;
+
+    if(type === "acid"){
+
+        pH = -Math.log10(concentration);
+
+    }else{
+
+        const pOH = -
